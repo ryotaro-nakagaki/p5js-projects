@@ -2,7 +2,7 @@ function preload() { loadFonts() }
 
 function setup() {
   // 作品タイトルを設定
-  init("Digits")
+  init("Video2")
 
   // ここにdrawブロックから参照されるグローバル定数を定義する
 
