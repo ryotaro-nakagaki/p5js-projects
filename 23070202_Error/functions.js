@@ -10,7 +10,7 @@ function init(title) {
 
   // 色関係の初期化
   colorMode(HSB, 100)
-  HUE = 8 * 100 / 9, SAT = 100, BRI = 50
+  HUE = random(100), SAT = 100, BRI = 50
   mainColor = color(HUE, SAT, BRI)
   complementColor = color((HUE + 50) % 100, SAT, BRI)
   BLACK = "#000", WHITE = "#FFF", GRAY = "#777", TRANSP = "#0000"
