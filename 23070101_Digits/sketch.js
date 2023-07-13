@@ -5,7 +5,10 @@ function setup() {
   init("Digits")
 
   // ここにdrawブロックから参照されるグローバル定数を定義する
-
+  params = []
+  for (let i = 0; i < 25; i++) {
+    params[i] = [random(), random(), random(), random()]
+  }
 }
 
 function windowResized() { draw() }
@@ -37,8 +40,10 @@ function draw() {
     translateCallback(0, 0, () => {
       for (let i = 0; i < 25; i++) {
         draw7SegDisp(
-          random(width), random(height),
-          floor(random(10)), random(1.5),
+          params[i][0] * width,
+          params[i][1] * height,
+          floor(params[i][2] * 10),
+          params[i][3] * FRAME_WIDTH / 25,
           WHITE, TRANSP
         )
       }
