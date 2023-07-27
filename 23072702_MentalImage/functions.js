@@ -87,20 +87,10 @@ function addFrame(fillColor, strokeColor, frameWidth) {
     vertexX = width / 2 - frameWidth
     vertexY = height / 2 - frameWidth
 
-    beginShape()
-    for (let x = -vertexX; x <= vertexX; x++) {
-      curveVertex(x, -vertexY + random(FRAME_WIDTH / 16))
-    }
-    for (let y = -vertexY; y <= vertexY; y++) {
-      curveVertex(vertexX + random(FRAME_WIDTH / 16), y)
-    }
-    for (let x = vertexX; x >= -vertexX; x--) {
-      curveVertex(x, vertexY + random(FRAME_WIDTH / 16))
-    }
-    for (let y = vertexY; y >= -vertexY; y--) {
-      curveVertex(-vertexX + random(FRAME_WIDTH / 16), y)
-    }
-    endShape()
+    noiseLine(-vertexX, -vertexY, vertexX, -vertexY)
+    noiseLine(-vertexX, vertexY, vertexX, vertexY)
+    noiseLine(-vertexX, -vertexY, -vertexX, vertexY)
+    noiseLine(vertexX, -vertexY, vertexX, vertexY)
   })
 }
 
@@ -113,8 +103,8 @@ function noiseLine(x1, y1, x2, y2) {
   beginShape()
   for (let i = 0; i <= dl; i += 1) {
     vertex(
-      v1.x + dv.x * i / dl + random(FRAME_WIDTH / 16),
-      v1.y + dv.y * i / dl + random(FRAME_WIDTH / 16)
+      v1.x + dv.x * i / dl + random(FRAME_WIDTH / 32),
+      v1.y + dv.y * i / dl + random(FRAME_WIDTH / 32)
     )
   }
   endShape()
