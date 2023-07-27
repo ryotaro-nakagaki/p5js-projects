@@ -42,9 +42,9 @@ function draw() {
       for (let i = 0; i < 100; i++) {
         drawPixelArt(
           random([
-            BITMAP.SMILE, BITMAP.CURSOR, BITMAP.HOURGRASS,
-            BITMAP.TEZOS, BITMAP.INVADER, BITMAP.GLIDER,
-            BITMAP.SPACESHIP, BITMAP.VIDEO2, BITMAP.ERROR,
+            BITMAP.SMILE, BITMAP.CURSOR, BITMAP.HOURGRASS, BITMAP.TEZOS,
+            BITMAP.INVADER_SQUID, BITMAP.INVADER_CRAB, BITMAP.INVADER_OCTOPUS,
+            BITMAP.GLIDER, BITMAP.SPACESHIP, BITMAP.VIDEO2, BITMAP.ERROR,
             BITMAP.SMILY_FACE
           ]),
           random(width), random(height), FRAME_WIDTH / random(5),
