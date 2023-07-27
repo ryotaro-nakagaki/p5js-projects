@@ -2,7 +2,7 @@ function preload() { loadFonts() }
 
 function setup() {
   // 作品タイトルを設定
-  init("Invader")
+  init("MentalImage")
 
   // ここにdrawブロックから参照されるグローバル定数を定義する
 
@@ -15,8 +15,8 @@ function draw() {
   FRAME_WIDTH = min(width, height) / 25
 
   {
-    stroke(BLACK) // BLACK, WHITE, mainColor, complementColor
-    fill(mainColor) // BLACK, WHITE, mainColor, complementColor
+    stroke(random([BLACK, WHITE, DARK_GRAY, mainColor])) // BLACK, WHITE, mainColor, complementColor
+    fill(random([BLACK, WHITE, DARK_GRAY, mainColor])) // BLACK, WHITE, mainColor, complementColor
     strokeCap(SQUARE) // ROUND, SQUARE, PROJECT
     strokeJoin(BEVEL) // MITER, BEVEL, ROUND
     strokeWeight(FRAME_WIDTH / 10)
@@ -25,9 +25,13 @@ function draw() {
   }
 
   {
-    addBackground(mainColor, false)
+    addBackground(random([BLACK, WHITE, DARK_GRAY, mainColor]), false)
     addForeground()
-    addFrame(WHITE, BLACK, FRAME_WIDTH)
+    addFrame(
+      random([BLACK, WHITE, DARK_GRAY, mainColor]),
+      random([BLACK, WHITE, DARK_GRAY, mainColor]),
+      FRAME_WIDTH
+    )
     // addSignature("Rayroot", coveredByYourGrace, WHITE)
     addPaperTexture()
     fxpreview()
@@ -35,15 +39,18 @@ function draw() {
 
   function addForeground() {
     translateCallback(0, 0, () => {
-      for (let y = 0; y <= height; y += height / 10) {
-        for (let x = 0; x <= width; x += width / 10) {
-          drawPixelArt(
-            random([BITMAP.SMILE, BITMAP.CURSOR, BITMAP.HOURGRASS, BITMAP.TEZOS, BITMAP.INVADER, BITMAP.VIDEO2, BITMAP.ERROR, BITMAP.SMILY_FACE]),
-            x, y, FRAME_WIDTH / 4,
-            random([BLACK, WHITE, GRAY, mainColor]),
-            random([BLACK, WHITE, GRAY, mainColor])
-          )
-        }
+      for (let i = 0; i < 100; i++) {
+        drawPixelArt(
+          random([
+            BITMAP.SMILE, BITMAP.CURSOR, BITMAP.HOURGRASS,
+            BITMAP.TEZOS, BITMAP.INVADER, BITMAP.GLIDER,
+            BITMAP.SPACESHIP, BITMAP.VIDEO2, BITMAP.ERROR,
+            BITMAP.SMILY_FACE
+          ]),
+          random(width), random(height), FRAME_WIDTH / random(5),
+          random([BLACK, WHITE, DARK_GRAY, mainColor]),
+          random([BLACK, WHITE, DARK_GRAY, mainColor])
+        )
       }
     })
   }

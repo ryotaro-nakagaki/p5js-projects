@@ -13,7 +13,7 @@ function init(title) {
   HUE = random(100), SAT = 100, BRI = 75
   mainColor = color(HUE, SAT, BRI)
   complementColor = color((HUE + 50) % 100, SAT, BRI)
-  BLACK = "#000", WHITE = "#FFF", GRAY = "#777", TRANSP = "#0000"
+  BLACK = "#000", WHITE = "#FFF", DARK_GRAY = "#333", TRANSP = "#0000"
 
   smooth()
   noLoop()
@@ -308,6 +308,17 @@ const BITMAP = Object.freeze({
     [1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1],
     [1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1],
     [0, 0, 0, 1, 1, 0, 1, 1, 0, 0, 0],
+  ],
+  GLIDER: [
+    [1, 1, 1],
+    [1, 0, 0],
+    [0, 1, 0],
+  ],
+  SPACESHIP: [
+    [0, 1, 0, 0, 1],
+    [1, 0, 0, 0, 0],
+    [1, 0, 0, 0, 1],
+    [1, 1, 1, 1, 0],
   ],
   VIDEO2: [
     [0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
