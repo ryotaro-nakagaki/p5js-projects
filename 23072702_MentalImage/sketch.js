@@ -47,9 +47,14 @@ function draw() {
             BITMAP.GLIDER, BITMAP.SPACESHIP, BITMAP.VIDEO2, BITMAP.ERROR,
             BITMAP.SMILY_FACE
           ]),
-          random(width), random(height), FRAME_WIDTH / random(5),
+          random(width), random(height), FRAME_WIDTH * random(),
           random([BLACK, WHITE, DARK_GRAY, mainColor]),
           random([BLACK, WHITE, DARK_GRAY, mainColor])
+        )
+        draw7SegDisp(
+          random(width), random(height), floor(random(10)), random(),
+          random([BLACK, WHITE, DARK_GRAY, mainColor]),
+          random([BLACK, WHITE, DARK_GRAY, mainColor]),
         )
       }
     })
