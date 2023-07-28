@@ -13,12 +13,12 @@ function init(title) {
   HUE = random(100), SAT = 100, BRI = 100
   mainColor = color(HUE, SAT, BRI)
   analogousColors = [
-    color((HUE + 100 / 12) % 100, SAT, BRI),
-    color((HUE - 100 / 12) % 100, SAT, BRI)
+    color((HUE + 100 / 24) % 100, SAT, BRI),
+    color((HUE - 100 / 24) % 100, SAT, BRI)
   ]
   complementColor = color((HUE + 50) % 100, SAT, BRI)
-  BLACK = "#000", WHITE = "#FFF", GRAY = "#777"
-  DARK_GRAY = "#333", LIGHT_GRAY = "#BBB"
+  BLACK = "#000", WHITE = "#FFF"
+  LIGHT_GRAY = "#BBB", GRAY = "#777", DARK_GRAY = "#333"
   TRANSP = "#0000"
 
   smooth()
@@ -173,52 +173,86 @@ function verticalLineTriangle(x1, y1, x2, y2, x3, y3, lineDash1, lineDash2) {
   }
 }
 
-function drawPixelArt(bitmap, x, y, pixelSize, strokeColor, fillColor, isSlashEnable) {
+function drawPixelArt(bitmap, x, y, pixelSize, strokeColor, fillColor, isSlashEnabled, isBackSlashEnabled) {
   const lengthX = bitmap[0].length
   const lengthY = bitmap.length
   const transX = x - pixelSize * (lengthX - 1) / 2
   const transY = y - pixelSize * (lengthY - 1) / 2
 
   translateCallback(transX, transY, () => {
+
+    // 塗り
+    fill(fillColor), noStroke()
+    for (let y = 0; y < lengthY; y++) {
+      for (let x = 0; x < lengthX; x++) {
+        if (bitmap[y][x] === 1) {
+          for (let i = 0; i < 3; i++) {
+            rect(pixelSize * x, pixelSize * y, pixelSize)
+          }
+        }
+      }
+    }
+
+    // 斜線
+    stroke(strokeColor)
     for (let y = 0; y < lengthY; y++) {
       for (let x = 0; x < lengthX; x++) {
         if (bitmap[y][x] === 1) {
           const x0 = pixelSize * x
           const y0 = pixelSize * y
 
-          // 塗り
-          fill(fillColor), noStroke()
-          rect(x0, y0, pixelSize + 1)
+          translateCallback(x0, y0, () => {
+            // スラッシュ（/）方向
+            if (isSlashEnabled) {
+              noiseLine(
+                -pixelSize * 1 / 6, -pixelSize * 1 / 2,
+                -pixelSize * 1 / 2, -pixelSize * 1 / 6
+              )
+              noiseLine(
+                +pixelSize * 1 / 6, -pixelSize * 1 / 2,
+                -pixelSize * 1 / 2, +pixelSize * 1 / 6
+              )
+              noiseLine(
+                +pixelSize * 1 / 2, -pixelSize * 1 / 2,
+                -pixelSize * 1 / 2, +pixelSize * 1 / 2
+              )
+              noiseLine(
+                +pixelSize * 1 / 2, -pixelSize * 1 / 6,
+                -pixelSize * 1 / 6, +pixelSize * 1 / 2
+              )
+              noiseLine(
+                +pixelSize * 1 / 2, +pixelSize * 1 / 6,
+                +pixelSize * 1 / 6, +pixelSize * 1 / 2
+              )
+            }
 
-          // 斜線
-          if (isSlashEnable) {
-            stroke(strokeColor)
-            noiseLine(
-              x0 - pixelSize * 1 / 2 - 1, y0 - pixelSize * 1 / 6 - 1,
-              x0 + pixelSize * 1 / 6 + 1, y0 + pixelSize * 1 / 2 + 1
-            )
-            noiseLine(
-              x0 - pixelSize * 1 / 2 - 1, y0 + pixelSize * 1 / 6 - 1,
-              x0 - pixelSize * 1 / 6 + 1, y0 + pixelSize * 1 / 2 + 1
-            )
-            noiseLine(
-              x0 - pixelSize * 1 / 2 - 1, y0 - pixelSize * 1 / 2 - 1,
-              x0 + pixelSize * 1 / 2 + 1, y0 + pixelSize * 1 / 2 + 1
-            )
-            noiseLine(
-              x0 - pixelSize * 1 / 6 - 1, y0 - pixelSize * 1 / 2 - 1,
-              x0 + pixelSize * 1 / 2 + 1, y0 + pixelSize * 1 / 6 + 1
-            )
-            noiseLine(
-              x0 + pixelSize * 1 / 6 - 1, y0 - pixelSize * 1 / 2 - 1,
-              x0 + pixelSize * 1 / 2 + 1, y0 - pixelSize * 1 / 6 + 1
-            )
-          }
+            // バックスラッシュ（\）方向
+            if (isBackSlashEnabled) {
+              noiseLine(
+                +pixelSize * 1 / 6, -pixelSize * 1 / 2,
+                +pixelSize * 1 / 2, -pixelSize * 1 / 6
+              )
+              noiseLine(
+                -pixelSize * 1 / 6, -pixelSize * 1 / 2,
+                +pixelSize * 1 / 2, +pixelSize * 1 / 6
+              )
+              noiseLine(
+                -pixelSize * 1 / 2, -pixelSize * 1 / 2,
+                +pixelSize * 1 / 2, +pixelSize * 1 / 2
+              )
+              noiseLine(
+                -pixelSize * 1 / 2, -pixelSize * 1 / 6,
+                +pixelSize * 1 / 6, +pixelSize * 1 / 2
+              )
+              noiseLine(
+                -pixelSize * 1 / 2, +pixelSize * 1 / 6,
+                -pixelSize * 1 / 6, +pixelSize * 1 / 2
+              )
+            }
+          })
         }
       }
     }
-
-
 
     // 輪郭線
     stroke(strokeColor), strokeCap(ROUND)

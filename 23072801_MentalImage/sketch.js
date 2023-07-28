@@ -33,7 +33,7 @@ function draw() {
 
   function addForeground() {
     translateCallback(0, 0, () => {
-      for (let i = 0; i < 100; i++) {
+      for (let i = 0; i < 200; i++) {
         drawPixelArt(
           random([
             BITMAP.SMILE, BITMAP.CURSOR, BITMAP.HOURGRASS, BITMAP.TEZOS,
@@ -41,13 +41,13 @@ function draw() {
             BITMAP.GLIDER, BITMAP.SPACESHIP, BITMAP.VIDEO2, BITMAP.ERROR,
             BITMAP.SMILY_FACE
           ]),
-          random(width), random(height), FRAME_WIDTH * random(1 / 3, 1), BLACK,
+          random(width), random(height), FRAME_WIDTH * 0.75, BLACK,
           random([WHITE, DARK_GRAY, GRAY, LIGHT_GRAY, mainColor, analogousColors[0], analogousColors[1]]),
-          random([true, false, false])
+          floor(random(1000)) % 8 === 0, floor(random(1000)) % 8 === 0
         )
 
         draw7SegDisp(
-          random(width), random(height), floor(random(10)), random(1 / 4, 1),
+          random(width), random(height), floor(random(10)), 0.75,
           BLACK, random([WHITE, DARK_GRAY, GRAY, LIGHT_GRAY, mainColor, analogousColors[0], analogousColors[1]]),
         )
       }
