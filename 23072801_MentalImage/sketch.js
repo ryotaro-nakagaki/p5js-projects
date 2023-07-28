@@ -17,7 +17,7 @@ function draw() {
   {
     strokeCap(SQUARE) // ROUND, SQUARE, PROJECT
     strokeJoin(BEVEL) // MITER, BEVEL, ROUND
-    strokeWeight(FRAME_WIDTH / 16)
+    strokeWeight(FRAME_WIDTH / 20)
     rectMode(CENTER) // CENTER, CORNERS
     textAlign(CENTER, CENTER)
   }
@@ -33,7 +33,7 @@ function draw() {
 
   function addForeground() {
     translateCallback(0, 0, () => {
-      for (let i = 0; i < 200; i++) {
+      for (let i = 0; i < 250; i++) {
         drawPixelArt(
           random([
             BITMAP.SMILE, BITMAP.SMILY_FACE, BITMAP.TEZOS, BITMAP.VIDEO2, BITMAP.ERROR,
@@ -41,12 +41,12 @@ function draw() {
             BITMAP.INVADER_SQUID, BITMAP.INVADER_CRAB, BITMAP.INVADER_OCTOPUS,
             BITMAP.GLIDER, BITMAP.SPACESHIP
           ]),
-          random(width), random(height), FRAME_WIDTH * 0.5, BLACK,
-          choseRandomColorFromPalette(), dice(8), dice(8)
+          random(width), random(height), FRAME_WIDTH * 0.4,
+          BLACK, choseRandomColorFromPalette(), dice(8), dice(8)
         )
 
         draw7SegDisp(
-          random(width), random(height), floor(random(10)), 0.5,
+          random(width), random(height), floor(random(10)), 0.4,
           BLACK, choseRandomColorFromPalette(),
         )
       }
