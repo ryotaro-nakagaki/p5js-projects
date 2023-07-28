@@ -5,6 +5,11 @@ const AR = Object.freeze({
   W16_H9: 9 / 16,
   W9_H16: 16 / 9
 })
+const THEME = Object.freeze({
+  LIGHT: "#DDD",
+  DARK: "#333"
+})
+
 let imgs = [
   null, null, null,
   null, null, null,
@@ -12,6 +17,7 @@ let imgs = [
 ]
 let inputs = []
 let selectedAR = AR.W1_H1
+let selectedTheme = THEME.LIGHT
 
 function setup() {
   // ファイルインプットの初期化
@@ -30,25 +36,37 @@ function setup() {
   }
 
   // セレクトボックスの初期化
-  sel = createSelect()
-  sel.position(10, 10)
-  const keys = Object.keys(AR)
-  for (let i = 0; i < keys.length; i++) {
-    sel.option(keys[i])
+  {
+    sel1 = createSelect()
+    sel1.position(10, 10)
+    const keys = Object.keys(AR)
+    for (let i = 0; i < keys.length; i++) {
+      sel1.option(keys[i])
+    }
+    sel1.changed(() => { selectedAR = AR[sel1.value()] })
   }
-  sel.changed(() => { selectedAR = AR[sel.value()] })
+
+  {
+    sel2 = createSelect()
+    sel2.position(10, 40)
+    const keys = Object.keys(THEME)
+    for (let i = 0; i < keys.length; i++) {
+      sel2.option(keys[i])
+    }
+    sel2.changed(() => { selectedTheme = THEME[sel2.value()] })
+  }
 }
 
 function windowResized() { draw() }
 
 function draw() {
   createCanvasByAR(selectedAR)
-  background("#333")
+  background(selectedTheme)
 
-  drawingContext.shadowOffsetX = 20
-  drawingContext.shadowOffsetY = 20
-  drawingContext.shadowBlur = 50
-  drawingContext.shadowColor = "#000A"
+  drawingContext.shadowOffsetX = 15
+  drawingContext.shadowOffsetY = 15
+  drawingContext.shadowBlur = 25
+  drawingContext.shadowColor = "#0003"
 
   padding = 2 * min(width, height) / 25
 
