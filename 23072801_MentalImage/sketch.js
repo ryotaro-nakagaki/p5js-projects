@@ -5,7 +5,26 @@ function setup() {
   init("MentalImage")
 
   // ここにdrawブロックから参照されるグローバル定数を定義する
-
+  params = []
+  for (let i = 0; i < 250; i++) {
+    params[i] = [
+      random([
+        BITMAP.SMILE, BITMAP.SMILY_FACE, BITMAP.TEZOS, BITMAP.VIDEO2, BITMAP.ERROR,
+        BITMAP.CURSOR_NORMAL_SELECT, BITMAP.CURSOR_LINK_SELECT, BITMAP.CURSOR_BUSY,
+        BITMAP.INVADER_SQUID, BITMAP.INVADER_CRAB, BITMAP.INVADER_OCTOPUS,
+        BITMAP.GLIDER, BITMAP.SPACESHIP
+      ]),
+      random(),
+      random(),
+      choseRandomColorFromPalette(),
+      dice(8),
+      dice(8),
+      random(),
+      random(),
+      random(),
+      choseRandomColorFromPalette()
+    ]
+  }
 }
 
 function windowResized() { draw() }
@@ -35,19 +54,12 @@ function draw() {
     translateCallback(0, 0, () => {
       for (let i = 0; i < 250; i++) {
         drawPixelArt(
-          random([
-            BITMAP.SMILE, BITMAP.SMILY_FACE, BITMAP.TEZOS, BITMAP.VIDEO2, BITMAP.ERROR,
-            BITMAP.CURSOR_NORMAL_SELECT, BITMAP.CURSOR_LINK_SELECT, BITMAP.CURSOR_BUSY,
-            BITMAP.INVADER_SQUID, BITMAP.INVADER_CRAB, BITMAP.INVADER_OCTOPUS,
-            BITMAP.GLIDER, BITMAP.SPACESHIP
-          ]),
-          random(width), random(height), FRAME_WIDTH * 0.4,
-          BLACK, choseRandomColorFromPalette(), dice(8), dice(8)
+          params[i][0], width * params[i][1], height * params[i][2],
+          FRAME_WIDTH * 0.4, BLACK, params[i][3], params[i][4], params[i][5]
         )
-
         draw7SegDisp(
-          random(width), random(height), floor(random(10)), 0.4,
-          BLACK, choseRandomColorFromPalette(),
+          width * params[i][6], height * params[i][7], floor(10 * params[i][8]),
+          FRAME_WIDTH * 0.4, BLACK, params[i][9]
         )
       }
     })

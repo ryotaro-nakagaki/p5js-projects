@@ -533,10 +533,10 @@ function addPaperTexture() {
 }
 
 function draw7SegDisp(x, y, digit, scale, strokeColor, fillColor) {
-  const l = 50 * scale // 各セグメントの長さ
-  const m = 20 * scale // 各セグメントの太さ
-  const n = 80 * scale // 各セグメント間の距離
-  const p = 10 * scale // 各セグメント間の角
+  const l = scale * 1.0 // 各セグメントの長さ
+  const m = scale * 0.4 // 各セグメントの太さ
+  const n = scale * 1.6 // 各セグメント間の距離
+  const p = scale * 0.2 // 各セグメント間の角
 
   translateCallback(x, y, () => {
     // 左上
