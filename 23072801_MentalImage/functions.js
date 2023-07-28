@@ -11,18 +11,37 @@ function init(title) {
   // 色関係の初期化
   colorMode(HSB, 100)
   HUE = random(100), SAT = 100, BRI = 100
+
+  // 基準色
   mainColor = color(HUE, SAT, BRI)
+
+  // 類似色
   analogousColors = [
     color((HUE + 100 / 24) % 100, SAT, BRI),
     color((HUE - 100 / 24) % 100, SAT, BRI)
   ]
+
+  // 補色
   complementColor = color((HUE + 50) % 100, SAT, BRI)
+
+  // グレースケール
   BLACK = "#000", WHITE = "#FFF"
   LIGHT_GRAY = "#BBB", GRAY = "#777", DARK_GRAY = "#333"
   TRANSP = "#0000"
 
   smooth()
   noLoop()
+}
+
+function choseRandomColorFromPalette() {
+  return random([
+    WHITE, LIGHT_GRAY, GRAY, DARK_GRAY, BLACK,
+    mainColor, analogousColors[0], analogousColors[1]
+  ])
+}
+
+function dice(numSurface) {
+  return floor(random(10000)) % numSurface === 0
 }
 
 const AR = Object.freeze({

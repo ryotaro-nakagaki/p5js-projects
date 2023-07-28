@@ -42,13 +42,12 @@ function draw() {
             BITMAP.SMILY_FACE
           ]),
           random(width), random(height), FRAME_WIDTH * 0.75, BLACK,
-          random([WHITE, DARK_GRAY, GRAY, LIGHT_GRAY, mainColor, analogousColors[0], analogousColors[1]]),
-          floor(random(1000)) % 8 === 0, floor(random(1000)) % 8 === 0
+          choseRandomColorFromPalette(), dice(8), dice(8)
         )
 
         draw7SegDisp(
           random(width), random(height), floor(random(10)), 0.75,
-          BLACK, random([WHITE, DARK_GRAY, GRAY, LIGHT_GRAY, mainColor, analogousColors[0], analogousColors[1]]),
+          BLACK, choseRandomColorFromPalette(),
         )
       }
     })
