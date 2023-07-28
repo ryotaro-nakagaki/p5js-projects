@@ -36,17 +36,17 @@ function draw() {
       for (let i = 0; i < 200; i++) {
         drawPixelArt(
           random([
-            BITMAP.SMILE, BITMAP.CURSOR, BITMAP.HOURGRASS, BITMAP.TEZOS,
+            BITMAP.SMILE, BITMAP.SMILY_FACE, BITMAP.TEZOS, BITMAP.VIDEO2, BITMAP.ERROR,
+            BITMAP.CURSOR_NORMAL_SELECT, BITMAP.CURSOR_LINK_SELECT, BITMAP.CURSOR_BUSY,
             BITMAP.INVADER_SQUID, BITMAP.INVADER_CRAB, BITMAP.INVADER_OCTOPUS,
-            BITMAP.GLIDER, BITMAP.SPACESHIP, BITMAP.VIDEO2, BITMAP.ERROR,
-            BITMAP.SMILY_FACE
+            BITMAP.GLIDER, BITMAP.SPACESHIP
           ]),
-          random(width), random(height), FRAME_WIDTH * 0.75, BLACK,
+          random(width), random(height), FRAME_WIDTH * 0.5, BLACK,
           choseRandomColorFromPalette(), dice(8), dice(8)
         )
 
         draw7SegDisp(
-          random(width), random(height), floor(random(10)), 0.75,
+          random(width), random(height), floor(random(10)), 0.5,
           BLACK, choseRandomColorFromPalette(),
         )
       }
