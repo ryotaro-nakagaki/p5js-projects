@@ -13,8 +13,8 @@ function init(title) {
   HUE = random(100), SAT = 100, BRI = 100
   mainColor = color(HUE, SAT, BRI)
   analogousColors = [
-    color((HUE + 100 / 24) % 100, SAT, BRI),
-    color((HUE - 100 / 24) % 100, SAT, BRI)
+    color((HUE + 100 / 12) % 100, SAT, BRI),
+    color((HUE - 100 / 12) % 100, SAT, BRI)
   ]
   complementColor = color((HUE + 50) % 100, SAT, BRI)
   BLACK = "#000", WHITE = "#FFF", GRAY = "#777"
@@ -88,7 +88,7 @@ function addFrame(fillColor, strokeColor, frameWidth) {
     rect(0, centerY, width, frameWidth)
 
     // 枠線
-    stroke(strokeColor), strokeWeight(FRAME_WIDTH / 10), noFill()
+    stroke(strokeColor), noFill()
 
     vertexX = width / 2 - frameWidth
     vertexY = height / 2 - frameWidth
@@ -437,7 +437,7 @@ function addPaperTexture() {
   }
 
   // 紙の色褪せの描画
-  noStroke(), fill(color(30, 20, 0, 20))
+  noStroke(), fill(color(100, 100, 0, 10))
   rect(0, 0, width, height)
 
   // インクのむら
