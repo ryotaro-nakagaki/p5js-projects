@@ -6,14 +6,15 @@ function setup() {
 
   // ここにdrawブロックから参照されるグローバル定数を定義する
   p1 = [], p2 = []
-  for (let i = 0; i < 2000; i++) {
+  for (let i = 0; i < 10000; i++) {
     p1[i] = {
-      rotate: random(2 * PI),
+      rotate: random(360),
       bitmap: random([
         BITMAP.SMILE, BITMAP.SMILY_FACE, BITMAP.TEZOS, BITMAP.VIDEO2, BITMAP.ERROR,
         BITMAP.CURSOR_NORMAL_SELECT, BITMAP.CURSOR_LINK_SELECT, BITMAP.CURSOR_BUSY,
         BITMAP.INVADER_SQUID, BITMAP.INVADER_CRAB, BITMAP.INVADER_OCTOPUS,
-        BITMAP.GLIDER, BITMAP.SPACESHIP]),
+        BITMAP.GLIDER, BITMAP.SPACESHIP
+      ]),
       x: random(),
       y: random(),
       pixelSize: random(1, 5),
@@ -42,7 +43,7 @@ function draw() {
   {
     strokeCap(SQUARE) // ROUND, SQUARE, PROJECT
     strokeJoin(BEVEL) // MITER, BEVEL, ROUND
-    strokeWeight(FRAME_WIDTH / 20)
+    strokeWeight(FRAME_WIDTH / 10)
     rectMode(CENTER) // CENTER, CORNERS
     textAlign(CENTER, CENTER)
   }
@@ -57,7 +58,7 @@ function draw() {
   }
 
   function addForeground() {
-    for (let i = 0; i < 2000; i++) {
+    for (let i = 0; i < 10000; i++) {
       rotateCallback(p1[i].rotate, () => {
         drawPixelArt(
           p1[i].bitmap,

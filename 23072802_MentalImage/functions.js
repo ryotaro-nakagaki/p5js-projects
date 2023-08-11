@@ -35,9 +35,11 @@ function init(title) {
 
 function choseRandomColorFromPalette() {
   return random([
-    WHITE, LIGHT_GRAY, GRAY, DARK_GRAY, BLACK,
+    WHITE, LIGHT_GRAY, GRAY, DARK_GRAY,
+    BLACK,
     mainColor, analogousColors[0], analogousColors[1],
-    complementColor, TRANSP
+    // complementColor,
+    TRANSP
   ])
 }
 
@@ -66,9 +68,10 @@ function translateCallback(x, y, CallbackFuncion) {
 }
 
 function rotateCallback(theta, CallbackFuncion) {
-  rotate(theta)
+  const rad = radians(theta)
+  rotate(rad)
   CallbackFuncion()
-  rotate(-theta)
+  rotate(-rad)
 }
 
 /**
