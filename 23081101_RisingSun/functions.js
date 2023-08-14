@@ -35,11 +35,13 @@ function init(title) {
 
 function choseRandomColorFromPalette() {
   return random([
-    WHITE, LIGHT_GRAY, GRAY, DARK_GRAY,
-    BLACK,
-    mainColor, analogousColors[0], analogousColors[1],
+    WHITE, LIGHT_GRAY,
+    GRAY,
+    // BLACK, DARK_GRAY,
+    mainColor,
+    analogousColors[0], analogousColors[1],
     complementColor,
-    // TRANSP
+    TRANSP
   ])
 }
 
@@ -80,21 +82,29 @@ function rotateCallback(theta, CallbackFuncion) {
  * @param {Object} fillColor 塗りの色
  * @param {Boolean} isGradientEnabled グラデーションさせるか
  */
-function addBackground(fillColor, strokeColor, isGradientEnabled) {
+function addBackground(bgColor, fillColor, strokeColor, isConcentrationLineEnabled, isGradientEnabled) {
   // 背景を単色で塗る
-  background(fillColor)
+  background(bgColor)
 
   // 集中線
-  stroke(strokeColor)
-  translateCallback(width / 2, height / 2, () => {
-    for (let theta = 0; theta < 360; theta += 9) {
-      for (let d = -9 / 4; d < 9 / 4; d++) {
-        rotateCallback(theta + d, () => {
-          noiseLine(0, 0, width / 2, height / 2)
-        })
+  if (isConcentrationLineEnabled) {
+    colorMode(HSB, 100)
+    stroke(strokeColor)
+    translateCallback(width / 2, height / 2, () => {
+      for (let theta = 0; theta < 360; theta += 9) {
+        for (let d = -9 / 4; d <= 9 / 4; d += 9 / 32) {
+          rotateCallback(theta + d, () => {
+            if (d === -9 / 4 || d === 9 / 4) {
+              stroke(strokeColor)
+            } else {
+              stroke(fillColor)
+            }
+            noiseLine(0, 0, width / 2, height / 2)
+          })
+        }
       }
-    }
-  })
+    })
+  }
 
   // グラデーションを追加する
   if (isGradientEnabled) {
@@ -146,12 +156,13 @@ function noiseLine(x1, y1, x2, y2) {
   const v2 = createVector(x2, y2)
   const dv = v2.sub(v1)
   const dl = dv.mag()
+  const r = FRAME_WIDTH / 128
 
   beginShape()
   for (let i = 0; i <= dl; i += 1) {
     vertex(
-      v1.x + dv.x * i / dl + random(FRAME_WIDTH / 32),
-      v1.y + dv.y * i / dl + random(FRAME_WIDTH / 32)
+      v1.x + dv.x * i / dl + randomGaussian(0, r),
+      v1.y + dv.y * i / dl + randomGaussian(0, r)
     )
   }
   endShape()

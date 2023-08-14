@@ -5,17 +5,6 @@ function setup() {
   init("Spaceship")
 
   // ここにdrawブロックから参照されるグローバル定数を定義する
-  params = {
-    bgFillcolor: choseRandomColorFromPalette(),
-    bgStrokecolor: choseRandomColorFromPalette(),
-    frameFillColor: choseRandomColorFromPalette(),
-    frameStrokeColor: choseRandomColorFromPalette(),
-    bitmap: choseRandomBitmap(),
-    fgStrokeColor: choseRandomColorFromPalette(),
-    fgFillColor: choseRandomColorFromPalette(),
-    isSlashEnabled: dice(2),
-    isBackSlashEnabled: dice(2)
-  }
 }
 
 function windowResized() { draw() }
@@ -33,25 +22,28 @@ function draw() {
   }
 
   {
-    addBackground(params.bgFillcolor, params.bgStrokecolor, true)
+    addBackground(BLACK, mainColor, BLACK, true, false)
     addForeground()
-    addFrame(params.frameFillColor, params.frameStrokeColor, FRAME_WIDTH)
+    addFrame(choseRandomColorFromPalette(), choseRandomColorFromPalette(), FRAME_WIDTH)
     // addSignature("Rayroot", coveredByYourGrace, WHITE)
-    addPaperTexture(true, true, false)
+    addPaperTexture(true, true, true)
     fxpreview()
   }
 
   function addForeground() {
     translateCallback(width / 2, height / 2, () => {
-      drawPixelArt(
-        params.bitmap,
-        0, 0,
-        FRAME_WIDTH / 2,
-        params.fgStrokeColor,
-        params.fgFillColor,
-        params.isSlashEnabled,
-        params.isBackSlashEnabled
-      )
+      for (let i = 0; i < 100; i++) {
+        drawPixelArt(
+          choseRandomBitmap(),
+          randomGaussian(0, 100),
+          randomGaussian(0, 100),
+          FRAME_WIDTH / 3,
+          BLACK,
+          choseRandomColorFromPalette(),
+          dice(4),
+          dice(4)
+        )
+      }
     })
   }
 }
