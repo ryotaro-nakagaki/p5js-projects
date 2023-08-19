@@ -16,33 +16,51 @@ function draw() {
   {
     strokeCap(SQUARE) // ROUND, SQUARE, PROJECT
     strokeJoin(BEVEL) // MITER, BEVEL, ROUND
-    strokeWeight(FRAME_WIDTH / 16)
+    strokeWeight(FRAME_WIDTH / 8)
     rectMode(CENTER) // CENTER, CORNERS
     textAlign(CENTER, CENTER)
   }
 
   {
-    addBackground(BLACK, mainColor, BLACK, true, false)
+    addBackground(
+      choseRandomColorFromPalette(),
+      choseRandomColorFromPalette(),
+      true, true
+    )
     addForeground()
-    addFrame(choseRandomColorFromPalette(), choseRandomColorFromPalette(), FRAME_WIDTH)
+    addFrame(
+      choseRandomColorFromPalette(),
+      choseRandomColorFromPalette(),
+      FRAME_WIDTH
+    )
     // addSignature("Rayroot", coveredByYourGrace, WHITE)
-    addPaperTexture(true, true, true)
+    addPaperTexture(true, true, true, false)
     fxpreview()
   }
 
   function addForeground() {
-    translateCallback(width / 2, height / 2, () => {
-      for (let i = 0; i < 100; i++) {
-        drawPixelArt(
-          choseRandomBitmap(),
-          randomGaussian(0, 100),
-          randomGaussian(0, 100),
-          FRAME_WIDTH / 3,
-          BLACK,
-          choseRandomColorFromPalette(),
-          dice(4),
-          dice(4)
-        )
+    translateCallback(0, 0, () => {
+      for (let i = 0; i < 10; i++) {
+        const bitmap = choseRandomBitmap()
+        const x = random(width)
+        const y = random(height)
+        const pixelSize = FRAME_WIDTH / random(1, 3)
+
+        const r = random([-1, 1])
+        const s = random([-1, 1])
+
+        for (let i = 0; i < 200; i += 5) {
+          drawPixelArt(
+            bitmap,
+            x + r * i,
+            y + s * i,
+            pixelSize + i,
+            BLACK,
+            choseRandomColorFromPalette(),
+            dice(4),
+            dice(4)
+          )
+        }
       }
     })
   }

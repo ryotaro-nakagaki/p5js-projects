@@ -37,11 +37,11 @@ function choseRandomColorFromPalette() {
   return random([
     WHITE, LIGHT_GRAY,
     GRAY,
-    // BLACK, DARK_GRAY,
+    BLACK, DARK_GRAY,
     mainColor,
     analogousColors[0], analogousColors[1],
-    complementColor,
-    TRANSP
+    // complementColor,
+    // TRANSP
   ])
 }
 
@@ -76,30 +76,24 @@ function rotateCallback(theta, CallbackFuncion) {
   rotate(-rad)
 }
 
-/**
- * 背景を追加する関数
- *
- * @param {Object} fillColor 塗りの色
- * @param {Boolean} isGradientEnabled グラデーションさせるか
- */
-function addBackground(bgColor, fillColor, strokeColor, isConcentrationLineEnabled, isGradientEnabled) {
+// 背景を追加する関数
+function addBackground(bgColor, concentrationLineColor, isConcentrationLineEnabled, isGradientEnabled) {
   // 背景を単色で塗る
+  colorMode(HSB, 100)
   background(bgColor)
 
   // 集中線
   if (isConcentrationLineEnabled) {
-    colorMode(HSB, 100)
-    stroke(strokeColor)
-    translateCallback(width / 2, height / 2, () => {
+    stroke(concentrationLineColor)
+
+    const centerX = random(width)
+    const centerY = random(height)
+
+    translateCallback(centerX, centerY, () => {
       for (let theta = 0; theta < 360; theta += 9) {
-        for (let d = -9 / 4; d <= 9 / 4; d += 9 / 32) {
+        for (let d = -9 / 4; d <= 9 / 4; d += 9 / 8) {
           rotateCallback(theta + d, () => {
-            if (d === -9 / 4 || d === 9 / 4) {
-              stroke(strokeColor)
-            } else {
-              stroke(fillColor)
-            }
-            noiseLine(0, 0, width / 2, height / 2)
+            noiseLine(0, 0, width, height)
           })
         }
       }
@@ -108,14 +102,13 @@ function addBackground(bgColor, fillColor, strokeColor, isConcentrationLineEnabl
 
   // グラデーションを追加する
   if (isGradientEnabled) {
-    colorMode(HSB, 100)
     const img = createImage(width, height)
     for (let y = 0; y < height; y++) {
       for (let x = 0; x < width; x++) {
         const c = color(
-          hue(fillColor),
+          hue(bgColor),
           100 * y / height,
-          brightness(fillColor),
+          brightness(bgColor),
           50
         )
         img.set(x, y, c)
