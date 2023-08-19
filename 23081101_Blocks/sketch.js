@@ -57,8 +57,10 @@ function draw() {
             pixelSize + i,
             BLACK,
             choseRandomColorFromPalette(),
-            dice(4),
-            dice(4)
+            dice(8),
+            dice(8),
+            dice(8),
+            dice(8)
           )
         }
       }

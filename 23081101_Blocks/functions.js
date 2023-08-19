@@ -218,7 +218,11 @@ function verticalLineTriangle(x1, y1, x2, y2, x3, y3, lineDash1, lineDash2) {
   }
 }
 
-function drawPixelArt(bitmap, x, y, pixelSize, strokeColor, fillColor, isSlashEnabled, isBackSlashEnabled) {
+function drawPixelArt(
+  bitmap, x, y, pixelSize, strokeColor, fillColor,
+  isVerticalStripeEnabled, isHorizontalStripeEnabled,
+  isSlashEnabled, isBackSlashEnabled
+) {
   const lengthX = bitmap[0].length
   const lengthY = bitmap.length
   const transX = x - pixelSize * (lengthX - 1) / 2
@@ -247,7 +251,27 @@ function drawPixelArt(bitmap, x, y, pixelSize, strokeColor, fillColor, isSlashEn
           const y0 = pixelSize * y
 
           translateCallback(x0, y0, () => {
-            // スラッシュ（/）方向
+            // 縦縞模様
+            if (isVerticalStripeEnabled) {
+              for (let i = -1 / 2; i <= 1 / 2; i += 1 / 6) {
+                noiseLine(
+                  pixelSize * i, -pixelSize * 1 / 2,
+                  pixelSize * i, +pixelSize * 1 / 2
+                )
+              }
+            }
+
+            // 横縞模様
+            if (isHorizontalStripeEnabled) {
+              for (let i = -1 / 2; i <= 1 / 2; i += 1 / 6) {
+                noiseLine(
+                  -pixelSize * 1 / 2, pixelSize * i,
+                  +pixelSize * 1 / 2, pixelSize * i
+                )
+              }
+            }
+
+            // スラッシュ（/）方向の縞模様
             if (isSlashEnabled) {
               noiseLine(
                 -pixelSize * 1 / 6, -pixelSize * 1 / 2,
@@ -271,7 +295,7 @@ function drawPixelArt(bitmap, x, y, pixelSize, strokeColor, fillColor, isSlashEn
               )
             }
 
-            // バックスラッシュ（\）方向
+            // バックスラッシュ（\）方向の縞模様
             if (isBackSlashEnabled) {
               noiseLine(
                 +pixelSize * 1 / 6, -pixelSize * 1 / 2,
