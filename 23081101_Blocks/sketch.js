@@ -68,4 +68,6 @@ function draw() {
   }
 }
 
-function keyTyped() { if (key === 's') saveCanvas(TITLE + "_" + SEED) }
+function keyTyped() {
+  if (key === 's') saveCanvas(TITLE + "_" + SEED, "png") // "png" or "jpg"
+}
