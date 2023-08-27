@@ -53,10 +53,10 @@ function draw() {
       for (let i = 0; i < 500; i++) {
         drawPixelArt(
           paramsBitmap[i],
-          paramsNum[2 + i] * width + randomGaussian(0, 1),
-          paramsNum[3 + i] * height + randomGaussian(0, 1),
+          paramsNum[2 + i] * width,// + randomGaussian(0, 1),
+          paramsNum[3 + i] * height,// + randomGaussian(0, 1),
           FRAME_WIDTH / 1.5,
-          BLACK, paramsColor[i],
+          BLACK, choseRandomColorFromPalette(),
           paramsDice[i], paramsDice[1 + i], paramsDice[2 + i], paramsDice[3 + i]
         )
       }
