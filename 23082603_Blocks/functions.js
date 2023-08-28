@@ -41,13 +41,16 @@ function init(title, isAnimated) {
 
 function choseRandomColorFromPalette() {
   return random([
-    WHITE, LIGHT_GRAY,
+    WHITE,
+    LIGHT_GRAY,
     GRAY,
-    // BLACK, DARK_GRAY,
+    BLACK,
+    DARK_GRAY,
     mainColor,
-    analogousColors[0], analogousColors[1],
+    analogousColors[0],
+    analogousColors[1],
     // complementColor,
-    // TRANSP
+    TRANSP
   ])
 }
 

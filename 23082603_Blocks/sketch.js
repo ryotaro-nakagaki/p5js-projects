@@ -6,19 +6,19 @@ function setup() {
 
   // ここにdrawブロックから参照されるグローバル定数を定義する
   paramsNum = []
-  for (let i = 0; i < 10000; i++) {
+  for (let i = 0; i < 100; i++) {
     paramsNum.push(random())
   }
   paramsColor = []
-  for (let i = 0; i < 10000; i++) {
+  for (let i = 0; i < 100; i++) {
     paramsColor.push(choseRandomColorFromPalette())
   }
   paramsBitmap = []
-  for (let i = 0; i < 10000; i++) {
+  for (let i = 0; i < 100; i++) {
     paramsBitmap.push(choseRandomBitmap())
   }
   paramsDice = []
-  for (let i = 0; i < 10000; i++) {
+  for (let i = 0; i < 100; i++) {
     paramsDice.push(dice(8))
   }
 }
@@ -50,15 +50,21 @@ function draw() {
 
   function addForeground() {
     translateCallback(0, 0, () => {
-      for (let i = 0; i < 500; i++) {
-        drawPixelArt(
-          paramsBitmap[i],
-          paramsNum[2 + i] * width,// + randomGaussian(0, 1),
-          paramsNum[3 + i] * height,// + randomGaussian(0, 1),
-          FRAME_WIDTH / 1.5,
-          BLACK, choseRandomColorFromPalette(),
-          paramsDice[i], paramsDice[1 + i], paramsDice[2 + i], paramsDice[3 + i]
-        )
+      for (let i = 0; i < 100; i++) {
+        rotateCallback(paramsNum[i] * 360, () => {
+          drawPixelArt(
+            paramsBitmap[i],
+            paramsNum[2 + i] * width,
+            paramsNum[3 + i] * height,
+            FRAME_WIDTH * map(paramsNum[4 + i], 0, 1, 1 / 4, 2),
+            BLACK,
+            choseRandomColorFromPalette(),
+            paramsDice[i],
+            paramsDice[1 + i],
+            paramsDice[2 + i],
+            paramsDice[3 + i]
+          )
+        })
       }
     })
   }
