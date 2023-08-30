@@ -16,10 +16,18 @@ function init(title, isAnimated) {
   mainColor = color(HUE, SAT, BRI)
 
   // 類似色
-  analogousColors = [
-    color((HUE + 100 / 24) % 100, SAT, BRI),
-    color((HUE - 100 / 24) % 100, SAT, BRI)
-  ]
+  numAnalogousColors = 10
+  hueRangeAnalogousColors = 25
+  analogousColors = []
+
+  numAnalogousColors = floor(numAnalogousColors)
+  for (
+    let degree = -hueRangeAnalogousColors / 2;
+    degree <= hueRangeAnalogousColors / 2;
+    degree += hueRangeAnalogousColors / numAnalogousColors
+  ) {
+    analogousColors.push(color(HUE + degree, SAT, BRI))
+  }
 
   // 補色
   complementColor = color((HUE + 50) % 100, SAT, BRI)
@@ -27,31 +35,45 @@ function init(title, isAnimated) {
   // グレースケール
   BLACK = "#000", WHITE = "#FFF"
   LIGHT_GRAY = "#BBB", GRAY = "#777", DARK_GRAY = "#333"
+
+  // 透過色
   TRANSP = "#0000"
 
   // その他
   smooth()
 
   if (isAnimated) {
-    frameRate(24)
+    frameRate(24) // Cinematic
   } else {
     noLoop()
   }
 }
 
 function choseRandomColorFromPalette() {
-  return random([
-    WHITE,
-    LIGHT_GRAY,
-    GRAY,
-    BLACK,
-    DARK_GRAY,
-    mainColor,
-    analogousColors[0],
-    analogousColors[1],
-    // complementColor,
-    TRANSP
-  ])
+  let pallet = []
+
+  // 基準色
+  pallet.push(mainColor)
+
+  // 類似色
+  for (let i = 0; i < analogousColors.length; i++) {
+    pallet.push(analogousColors[i])
+  }
+
+  // 補色
+  pallet.push(complementColor)
+
+  // グレースケール
+  pallet.push(WHITE)
+  pallet.push(LIGHT_GRAY)
+  pallet.push(GRAY)
+  pallet.push(DARK_GRAY)
+  pallet.push(BLACK)
+
+  // 透過色
+  pallet.push(TRANSP)
+
+  return random(pallet)
 }
 
 function dice(numSurface) {
@@ -65,6 +87,16 @@ const AR = Object.freeze({
   W16_H9: 9 / 16,
   W9_H16: 16 / 9
 })
+
+function chooseRandomAR() {
+  return random([
+    AR.W1_H1,
+    AR.W4_H3,
+    AR.W3_H4,
+    AR.W16_H9,
+    AR.W9_H16,
+  ])
+}
 
 function createCanvasByAR(AR) {
   AR < windowHeight / windowWidth ?
