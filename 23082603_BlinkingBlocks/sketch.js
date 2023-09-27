@@ -22,7 +22,7 @@ function setup() {
     paramsDice.push(dice(8))
   }
 
-  ar = chooseRandomAR()
+  ar = AR.W1_H1 // chooseRandomAR()
 }
 
 function windowResized() { draw() }
@@ -34,16 +34,16 @@ function draw() {
   {
     strokeCap(SQUARE) // ROUND, SQUARE, PROJECT
     strokeJoin(BEVEL) // MITER, BEVEL, ROUND
-    strokeWeight(FRAME_WIDTH / 8)
+    strokeWeight(FRAME_WIDTH / 16)
     rectMode(CENTER) // CENTER, CORNERS
     textAlign(CENTER, CENTER)
   }
 
   {
-    addBackground(
-      paramsColor[0], paramsColor[1], true,
-      paramsNum[0] * width, paramsNum[1] * height, true
-    )
+    // addBackground(
+    //   choseRandomColorFromPalette(), choseRandomColorFromPalette(), true,
+    //   paramsNum[0] * width, paramsNum[1] * height, true
+    // )
     addForeground()
     addFrame(WHITE, BLACK, FRAME_WIDTH)
     addPaperTexture(true, true, true, false)
@@ -51,28 +51,26 @@ function draw() {
   }
 
   function addForeground() {
-    translateCallback(0, 0, () => {
-      for (let i = 0; i < 10000; i++) {
-        rotateCallback(paramsNum[i] * 360, () => {
-          drawPixelArt(
-            paramsBitmap[i],
-            paramsNum[2 + i] * width,
-            paramsNum[3 + i] * height,
-            FRAME_WIDTH * map(paramsNum[4 + i], 0, 1, 1 / 32, 1),
-            BLACK,
-            choseRandomColorFromPalette(),
-            false, // paramsDice[i],
-            false, // paramsDice[1 + i],
-            false, // paramsDice[2 + i],
-            false, // paramsDice[3 + i]
-          )
-        })
-      }
-    })
+    for (let i = 0; i < 1000; i++) {
+      rotateCallback(paramsNum[i] * 360, () => {
+        drawPixelArt(
+          paramsBitmap[i],
+          paramsNum[2 + i] * width,
+          paramsNum[3 + i] * height,
+          FRAME_WIDTH / 2,
+          BLACK,
+          i % 10 === 0 ? choseRandomColorFromPalette() : paramsColor[i],
+          paramsDice[i],
+          paramsDice[1 + i],
+          paramsDice[2 + i],
+          paramsDice[3 + i]
+        )
+      })
+    }
   }
 }
 
 function keyTyped() {
   if (key === 's') saveCanvas(TITLE + "_" + SEED, "png") // "png" or "jpg"
-  if (key === 'g') saveGif(TITLE + "_" + SEED, 4 * 1 / getTargetFrameRate())
+  if (key === 'g') saveGif(TITLE + "_" + SEED, 10 * 1 / getTargetFrameRate())
 }
