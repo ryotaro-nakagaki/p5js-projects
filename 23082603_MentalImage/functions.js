@@ -49,32 +49,34 @@ function init(title, isAnimated) {
   }
 }
 
-function choseRandomColorFromPalette() {
+function choseRandomColorFromPalette(enableGrayScaleMode) {
   let pallet = []
-
-  // 基準色
-  for (let i = 0; i < 2; i++) {
-    pallet.push(MAIN_COLOR)
-  }
-
-  // 類似色
-  // for (let i = 0; i < ANALOGOUS_COLORS.length; i++) {
-  //   pallet.push(ANALOGOUS_COLORS[i])
-  // }
-
-  // 補色
-  // pallet.push(COMPLEMENT_COLOR)
 
   // グレースケール
   pallet.push(WHITE)
-  pallet.push(LIGHT_GRAY)
-  pallet.push(GRAY)
-  pallet.push(DARK_GRAY)
+  // pallet.push(LIGHT_GRAY)
+  // pallet.push(GRAY)
+  // pallet.push(DARK_GRAY)
   pallet.push(BLACK)
 
-  // 透過色
-  for (let i = 0; i < 2; i++) {
-    pallet.push(TRANSP)
+  if (!enableGrayScaleMode) {
+    // 基準色
+    for (let i = 0; i < 2; i++) {
+      pallet.push(MAIN_COLOR)
+    }
+
+    // 類似色
+    // for (let i = 0; i < ANALOGOUS_COLORS.length; i++) {
+    //   pallet.push(ANALOGOUS_COLORS[i])
+    // }
+
+    // 補色
+    // pallet.push(COMPLEMENT_COLOR)
+
+    // 透過色
+    for (let i = 0; i < 100; i++) {
+      pallet.push(TRANSP)
+    }
   }
 
   return random(pallet)
@@ -194,13 +196,13 @@ function noiseLine(x1, y1, x2, y2) {
   const v2 = createVector(x2, y2)
   const dv = v2.sub(v1)
   const dl = dv.mag()
-  const r = FRAME_WIDTH / 64
+  const noiseSize = FRAME_WIDTH / 64
 
   beginShape()
   for (let i = 0; i <= dl; i += 1) {
     vertex(
-      v1.x + dv.x * i / dl + randomGaussian(0, r),
-      v1.y + dv.y * i / dl + randomGaussian(0, r)
+      v1.x + dv.x * i / dl + randomGaussian(0, noiseSize),
+      v1.y + dv.y * i / dl + randomGaussian(0, noiseSize)
     )
   }
   endShape()
@@ -277,10 +279,6 @@ function drawPixelArt(
 
     // 塗り
     fill(fillColor), noStroke()
-    if (fillColor === MAIN_COLOR) {
-      drawingContext.shadowBlur = 25
-      drawingContext.shadowColor = fillColor
-    }
     for (let y = 0; y < lengthY; y++) {
       for (let x = 0; x < lengthX; x++) {
         if (bitmap[y][x] === 1) {
@@ -290,7 +288,6 @@ function drawPixelArt(
         }
       }
     }
-    drawingContext.shadowBlur = 0
 
     // 斜線
     stroke(strokeColor)
@@ -654,7 +651,7 @@ function addPaperTexture(isNoiseEnabled, isFiberEnabled, isFadeEnabled, isUneven
     const img = createImage(width, height)
     for (let y = 0; y < img.height; y++) {
       for (let x = 0; x < img.width; x++) {
-        img.set(x, y, color(100 * noise(offset.x + x / 500, offset.y + y / 500), 15))
+        img.set(x, y, color(100 * noise(offset.x + x / 500, offset.y + y / 500), 5))
       }
     }
     img.updatePixels()

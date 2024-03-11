@@ -2,7 +2,7 @@ function preload() { loadFonts() }
 
 function setup() {
   // 作品タイトルを設定
-  init("MentalImage", true)
+  init("MentalImage", false)
 
   // ここにdrawブロックから参照されるグローバル定数を定義する
   p1 = []
@@ -18,15 +18,15 @@ function setup() {
       ]),
       x: random(),
       y: random(),
-      pixelSize: random(1, 5),
-      strokeColor: BLACK,
-      fillColor: choseRandomColorFromPalette(),
-      isSlashEnabled: false,
-      isBackSlashEnabled: false,
+      pixelSize: random(.25, 5),
+      strokeColor: choseRandomColorFromPalette(false),
+      fillColor: choseRandomColorFromPalette(false),
+      isSlashEnabled: dice(2),
+      isBackSlashEnabled: dice(2),
     }
   }
 
-  ar = AR.W3_H4 // chooseRandomAR()
+  ar = chooseRandomAR() // chooseRandomAR()
 }
 
 function windowResized() { draw() }
@@ -44,16 +44,27 @@ function draw() {
   }
 
   {
-    addBackground(WHITE, BLACK, false, random(width), random(height), false)
+    addBackground(
+      choseRandomColorFromPalette(false),
+      choseRandomColorFromPalette(false),
+      true,
+      random(width),
+      random(height),
+      true
+    )
     addForeground()
-    addFrame(WHITE, BLACK, FRAME_WIDTH)
+    addFrame(
+      choseRandomColorFromPalette(true),
+      choseRandomColorFromPalette(true),
+      FRAME_WIDTH
+    )
     // addSignature("Rayroot", coveredByYourGrace, WHITE)
-    addPaperTexture(true, true, false)
+    addPaperTexture(true, true, true)
     // fxpreview()
   }
 
   function addForeground() {
-    for (let i = 0; i < 5000; i++) {
+    for (let i = 0; i < 10000; i++) {
       rotateCallback(p1[i].rotate, () => {
         drawPixelArt(
           p1[i].bitmap,
