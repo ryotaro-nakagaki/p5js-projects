@@ -2,15 +2,15 @@ function preload() { loadFonts() }
 
 function setup() {
   // 作品タイトルを設定
-  init("DominantColors2", true)
+  init("MentalImage", false)
 
   // ここにdrawブロックから参照されるグローバル定数を定義する
   {
     parameter_1 = []
-    numPixelArt = 100
+    numPixelArt = 200
     for (let i = 0; i < numPixelArt; i++) {
       parameter_1[i] = {
-        rotate: random(0),
+        rotate: random(360),
         bitmap: random([
           BITMAP.SMILE, BITMAP.SMILY_FACE, BITMAP.TEZOS, BITMAP.VIDEO2, BITMAP.ERROR,
           BITMAP.CURSOR_NORMAL_SELECT, BITMAP.CURSOR_LINK_SELECT, BITMAP.CURSOR_BUSY,
@@ -39,22 +39,24 @@ function setup() {
           enableComplementColor: true,
           enableTransp: true,
         }),
-        isSlashEnabled: dice(0),
-        isBackSlashEnabled: dice(0),
+        isVerticalStripeEnabled: dice(2),
+        isHorizontalStripeEnabled: dice(2),
+        isSlashEnabled: dice(2),
+        isBackSlashEnabled: dice(2),
       }
     }
   }
 
   {
     parameter_2 = []
-    num7segDisp = 100
+    num7segDisp = 200
     for (let k = 0; k < num7segDisp; k++) {
       parameter_2[k] = {
-        rotate: random(0),
+        rotate: random(360),
         x: random(),
         y: random(),
         digit: random([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]),
-        scale: random(20, 150),
+        scale: random(20, 50),
         strokeColor: popPalletColor({
           enableWhite: false,
           enableBlack: true,
@@ -91,7 +93,7 @@ function draw() {
   {
     strokeCap(SQUARE) // ROUND, SQUARE, PROJECT
     strokeJoin(BEVEL) // MITER, BEVEL, ROUND
-    strokeWeight(FRAME_WIDTH / 10)
+    strokeWeight(FRAME_WIDTH / 20)
     rectMode(CENTER) // CENTER, CORNERS
     textAlign(CENTER, CENTER)
   }
@@ -128,14 +130,18 @@ function draw() {
     {
       for (let i = 0; i < numPixelArt; i++) {
         rotateCallback(parameter_1[i].rotate, () => {
-          drawPixelArt(
-            parameter_1[i].bitmap,
-            parameter_1[i].x * width,
-            parameter_1[i].y * height,
-            FRAME_WIDTH / parameter_1[i].pixelSize,
-            parameter_1[i].strokeColor, parameter_1[i].fillColor,
-            parameter_1[i].isSlashEnabled, parameter_1[i].isBackSlashEnabled
-          )
+          drawPixelArt({
+            bitmap: parameter_1[i].bitmap,
+            x: parameter_1[i].x * width,
+            y: parameter_1[i].y * height,
+            pixelSize: FRAME_WIDTH / parameter_1[i].pixelSize,
+            strokeColor: parameter_1[i].strokeColor,
+            fillColor: parameter_1[i].fillColor,
+            isVerticalStripeEnabled: parameter_1[i].isVerticalStripeEnabled,
+            isHorizontalStripeEnabled: parameter_1[i].isHorizontalStripeEnabled,
+            isSlashEnabled: parameter_1[i].isSlashEnabled,
+            isBackSlashEnabled: parameter_1[i].isBackSlashEnabled,
+          })
         })
         rotateCallback(parameter_2[i].rotate, () => {
           draw7SegDisp(

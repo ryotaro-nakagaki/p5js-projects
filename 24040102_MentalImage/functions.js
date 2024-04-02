@@ -1,6 +1,8 @@
 function init(title, isAnimated) {
   // シード値の初期化
   SEED = floor(fxrand() * (10 ** 16))
+  console.log("Random seed: " + SEED)
+
   randomSeed(SEED)
   noiseSeed(SEED)
 
@@ -10,7 +12,10 @@ function init(title, isAnimated) {
 
   // 色関係の初期化
   colorMode(HSB, 100)
-  HUE = 12, SAT = 100, BRI = 100
+  HUE = 2 // round(random(100))  // I love yellow that hue is 12.
+  SAT = 100
+  BRI = 100
+  console.log("Hue of main color: " + HUE)
 
   // 基準色
   MAIN_COLOR = color(HUE, SAT, BRI)
@@ -217,28 +222,11 @@ function addFrame(fillColor, strokeColor, frameWidth) {
   })
 }
 
-// colorMode(RGB, 100)
-// const offset = { x: randomGaussian(), y: randomGaussian() }
-// const img = createImage(width, height)
-// for (let y = 0; y < img.height; y++) {
-//   for (let x = 0; x < img.width; x++) {
-//     img.set(x, y, color(100 * noise(offset.x + x / 500, offset.y + y / 500), 10))
-//   }
-// }
-// img.updatePixels()
-// image(img, 0, 0)
-
 function noiseLine(x1, y1, x2, y2) {
   const v1 = createVector(x1, y1)
   const v2 = createVector(x2, y2)
   const dv = v2.sub(v1)
   const dl = dv.mag()
-
-  const noiseSize = 10
-  const offset = {
-    x: randomGaussian(),
-    y: randomGaussian()
-  }
 
   noFill()
   beginShape()
@@ -246,10 +234,8 @@ function noiseLine(x1, y1, x2, y2) {
     const sd = FRAME_WIDTH / 100
     vertex(
       v1.x + dv.x * i / dl
-      + map(noise(offset.x + i / 100), 0, 1, -noiseSize, noiseSize)
       + randomGaussian(0, randomGaussian(0, sd)),
       v1.y + dv.y * i / dl
-      + map(noise(offset.y + i / 100), 0, 1, -noiseSize, noiseSize)
       + randomGaussian(0, randomGaussian(0, sd))
     )
   }
@@ -313,11 +299,17 @@ function verticalLineTriangle(x1, y1, x2, y2, x3, y3, lineDash1, lineDash2) {
   }
 }
 
-function drawPixelArt(
-  bitmap, x, y, pixelSize, strokeColor, fillColor,
-  isVerticalStripeEnabled, isHorizontalStripeEnabled,
-  isSlashEnabled, isBackSlashEnabled
-) {
+function drawPixelArt({
+  bitmap = [],
+  x = 0, y = 0,
+  pixelSize = 1,
+  strokeColor = BLACK,
+  fillColor = BLACK,
+  isVerticalStripeEnabled = false,
+  isHorizontalStripeEnabled = false,
+  isSlashEnabled = false,
+  isBackSlashEnabled = false
+}) {
   const lengthX = bitmap[0].length
   const lengthY = bitmap.length
   const transX = x - pixelSize * (lengthX - 1) / 2
