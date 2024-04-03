@@ -138,27 +138,10 @@ function rotateCallback(theta, CallbackFuncion) {
 
 // 背景を追加する関数
 function addBackground(
-  bgColor, concentrationLineColor, isConcentrationLineEnabled,
-  concentrationLineCenterX, concentrationLineCenterY, isGradientEnabled
-) {
+  bgColor, isGradientEnabled) {
   // 背景を単色で塗る
   colorMode(HSB, 100)
   background(bgColor)
-
-  // 集中線
-  if (isConcentrationLineEnabled) {
-    stroke(concentrationLineColor)
-
-    translateCallback(concentrationLineCenterX, concentrationLineCenterY, () => {
-      for (let theta = 0; theta < 360; theta += 9) {
-        for (let d = -9 / 4; d <= 9 / 4; d += 9 / 8) {
-          rotateCallback(theta + d, () => {
-            noiseLine(0, 0, width, height)
-          })
-        }
-      }
-    })
-  }
 
   // グラデーションを追加する
   if (isGradientEnabled) {

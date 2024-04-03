@@ -4,7 +4,7 @@ function setup() {
 
   // ここにdrawブロックから参照されるグローバル定数を定義する
 
-  ar = chooseRandomAR() // chooseRandomAR()
+  ar = AR.W1_H1 // chooseRandomAR()
 }
 
 function windowResized() { draw() }
@@ -26,19 +26,43 @@ function draw() {
   {
     // 背景
     addBackground(
-      BLACK,
-      TRANSP,
-      false,
-      random(width),
-      random(height),
-      true
+      popPalletColor({
+        enableWhite: true,
+        enableBlack: true,
+        enableGrayColors: true,
+        enableMainColor: true,
+        enableAnalogousColors: true,
+        enableComplementColor: true,
+        enableTransp: false,
+      }),
+      dice(2)
     )
 
     //前景
     addForeground()
 
     // 枠
-    // addFrame(WHITE, BLACK, FRAME_WIDTH)
+    addFrame(
+      popPalletColor({
+        enableWhite: true,
+        enableBlack: true,
+        enableGrayColors: true,
+        enableMainColor: true,
+        enableAnalogousColors: true,
+        enableComplementColor: true,
+        enableTransp: false,
+      }),
+      popPalletColor({
+        enableWhite: true,
+        enableBlack: true,
+        enableGrayColors: true,
+        enableMainColor: true,
+        enableAnalogousColors: true,
+        enableComplementColor: true,
+        enableTransp: false,
+      }),
+      FRAME_WIDTH
+    )
 
     // addSignature("Rayroot", coveredByYourGrace, BLACK)
     addPaperTexture({
@@ -52,10 +76,42 @@ function draw() {
   }
 
   function addForeground() {
+    const lineColor = popPalletColor({
+      enableWhite: true,
+      enableBlack: true,
+      enableGrayColors: true,
+      enableMainColor: true,
+      enableAnalogousColors: true,
+      enableComplementColor: true,
+      enableTransp: false,
+    })
+
+    translateCallback(width / 2, height / 2, () => {
+      const numLines = round(random(2, 6))
+      for (let theta = -90; theta < 360 - 90; theta += 360 / numLines) {
+        point1 = {
+          x: width * cos(radians(theta - 360 / (numLines * 4))),
+          y: height * sin(radians(theta - 360 / (numLines * 4))),
+        }
+        point2 = {
+          x: width * cos(radians(theta + 360 / (numLines * 4))),
+          y: height * sin(radians(theta + 360 / (numLines * 4))),
+        }
+
+        noStroke()
+        fill(lineColor)
+        triangle(0, 0, point1.x, point1.y, point2.x, point2.y)
+
+        stroke(lineColor)
+        noiseLine(0, 0, point1.x, point1.y)
+        noiseLine(0, 0, point2.x, point2.y)
+      }
+    })
+
     drawPixelArt({
       bitmap: chooseRandomBitmap(),
       x: width / 2, y: height / 2,
-      pixelSize: 10,
+      pixelSize: 25,
       strokeColor: popPalletColor({
         enableWhite: true,
         enableBlack: true,
@@ -63,7 +119,7 @@ function draw() {
         enableMainColor: true,
         enableAnalogousColors: true,
         enableComplementColor: true,
-        enableTransp: true,
+        enableTransp: false,
       }),
       fillColor: popPalletColor({
         enableWhite: true,
@@ -72,7 +128,7 @@ function draw() {
         enableMainColor: true,
         enableAnalogousColors: true,
         enableComplementColor: true,
-        enableTransp: true,
+        enableTransp: false,
       })
     })
   }
