@@ -14,7 +14,9 @@ function init(title, isAnimated) {
   colorMode(HSB, 100)
 
   // 基準色
-  console.log("Hue of main color: " + HUE)
+  console.log("HUE of main color: " + HUE)
+  console.log("SAT of main color: " + SAT)
+  console.log("BRI of main color: " + BRI)
   MAIN_COLOR = color(HUE, SAT, BRI)
 
   // 類似色
@@ -221,7 +223,7 @@ function noiseLine(x1, y1, x2, y2) {
   noFill()
   beginShape()
   for (let i = 0; i <= dl; i += 1) {
-    const sd = FRAME_WIDTH / 100
+    const sd = FRAME_WIDTH / 150
     vertex(
       v1.x + dv.x * i / dl
       + randomGaussian(0, randomGaussian(0, sd)),
@@ -234,8 +236,8 @@ function noiseLine(x1, y1, x2, y2) {
 
 function addSignature(string, font, color) {
   noStroke(), fill(color)
-  textFont(font), textSize(FRAME_WIDTH * 0.75), textAlign(RIGHT, BOTTOM)
-  text(string, width - FRAME_WIDTH * 1.5, height - FRAME_WIDTH * 1.5)
+  textFont(font), textSize(FRAME_WIDTH / 2), textAlign(RIGHT, TOP)
+  text(string, width - FRAME_WIDTH, height - FRAME_WIDTH)
 }
 
 function drawShape(strokeColor, fillColor, func) {
@@ -498,7 +500,7 @@ function addPaperTexture({
 
   // 紙の色褪せの描画
   if (isFadeEnabled) {
-    noStroke(), fill(color(100, 100, 0, 10))
+    noStroke(), fill(color(100, 100, 0, 5))
     rect(0, 0, width, height)
   }
 
@@ -634,4 +636,35 @@ function draw7SegDisp(x, y, digit, scale, strokeColor, fillColor) {
       }
     }
   })
+}
+
+function loadFonts() {
+  // 等幅
+  shareTechMono = loadFont("fonts/ShareTechMono-Regular.ttf")
+  specialElite = loadFont("fonts/SpecialElite-Regular.ttf")
+
+  // 手書き
+  coveredByYourGrace = loadFont("fonts/CoveredByYourGrace-Regular.ttf")
+  sedgwickAve = loadFont("fonts/SedgwickAve-Regular.ttf")
+  rangaRegular = loadFont("fonts/Ranga-Regular.ttf")
+  rangaBold = loadFont("fonts/Ranga-Bold.ttf")
+
+  // 筆記体
+  seaweedScript = loadFont("fonts/SeaweedScript-Regular.ttf")
+
+  // ビットマップ
+  silkscreenRegular = loadFont("fonts/Silkscreen-Regular.ttf")
+  silkscreenBold = loadFont("fonts/Silkscreen-Bold.ttf")
+  vt323 = loadFont("fonts/VT323-Regular.ttf")
+  Micro5Regular = loadFont("fonts/Micro5-Regular.ttf")
+
+  // バーコード
+  libreBarcode39ExtendedText = loadFont("fonts/LibreBarcode39ExtendedText-Regular.ttf")
+  libreBarcode39Extended = loadFont("fonts/LibreBarcode39Extended-Regular.ttf")
+
+  // 日本語
+  monomaniacOne = loadFont("fonts/MonomaniacOne-Regular.ttf")
+  zenKurenaido = loadFont("fonts/ZenKurenaido-Regular.ttf")
+  yujiHentaiganaAkari = loadFont("fonts/YujiHentaiganaAkari-Regular.ttf")
+  yujiHentaiganaAkebono = loadFont("fonts/YujiHentaiganaAkebono-Regular.ttf")
 }
