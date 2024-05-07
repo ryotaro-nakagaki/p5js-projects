@@ -12,7 +12,7 @@ function init(title, isAnimated) {
 
   // 色関係の初期化
   colorMode(HSB, 100)
-  HUE = 2 // round(random(100))  // I love yellow that hue is 12.
+  HUE = 12 // round(random(100))  // I love yellow that hue is 12.
   SAT = 100
   BRI = 100
   console.log("Hue of main color: " + HUE)
