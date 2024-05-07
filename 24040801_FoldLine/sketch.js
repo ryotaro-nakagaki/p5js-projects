@@ -35,7 +35,7 @@ function draw() {
         enableComplementColor: false,
         enableTransp: false,
       }),
-      dice(0)
+      true
     )
 
     //前景
@@ -45,7 +45,7 @@ function draw() {
     addFrame(
       popPalletColor({
         enableWhite: true,
-        enableBlack: true,
+        enableBlack: false,
         enableGrayColors: false,
         enableMainColor: false,
         enableAnalogousColors: false,
@@ -53,10 +53,10 @@ function draw() {
         enableTransp: false,
       }),
       popPalletColor({
-        enableWhite: false,
+        enableWhite: true,
         enableBlack: false,
         enableGrayColors: false,
-        enableMainColor: true,
+        enableMainColor: false,
         enableAnalogousColors: false,
         enableComplementColor: false,
         enableTransp: false,
