@@ -44,7 +44,7 @@ function setup() {
       }),
       isVerticalStripeEnabled: false,
       isHorizontalStripeEnabled: false,
-      isSlashEnabled: false,
+      isSlashEnabled: dice(4),
       isBackSlashEnabled: dice(4),
     }
   }
@@ -80,36 +80,36 @@ function setup() {
     }
   }
 
-  {
-    parameter_3 = []
-    for (let i = 0; i < numLoop; i++) {
-      parameter_3[i] = {
-        rotate: random(360),
-        x: random(),
-        y: random(),
-        fontSize: 40,
-        words_idx: round(10000 * random()) % WORDS.length,
-        strokeColor: popPalletColor({
-          enableWhite: true,
-          enableBlack: true,
-          enableGrayColors: false,
-          enableMainColor: false,
-          enableAnalogousColors: false,
-          enableComplementColor: false,
-          enableTransp: false,
-        }),
-        fillColor: popPalletColor({
-          enableWhite: true,
-          enableBlack: true,
-          enableGrayColors: true,
-          enableMainColor: true,
-          enableAnalogousColors: true,
-          enableComplementColor: false,
-          enableTransp: true,
-        }),
-      }
-    }
-  }
+  // {
+  //   parameter_3 = []
+  //   for (let i = 0; i < numLoop; i++) {
+  //     parameter_3[i] = {
+  //       rotate: random(360),
+  //       x: random(),
+  //       y: random(),
+  //       fontSize: 40,
+  //       words_idx: round(10000 * random()) % WORDS.length,
+  //       strokeColor: popPalletColor({
+  //         enableWhite: true,
+  //         enableBlack: true,
+  //         enableGrayColors: false,
+  //         enableMainColor: false,
+  //         enableAnalogousColors: false,
+  //         enableComplementColor: false,
+  //         enableTransp: false,
+  //       }),
+  //       fillColor: popPalletColor({
+  //         enableWhite: true,
+  //         enableBlack: true,
+  //         enableGrayColors: true,
+  //         enableMainColor: true,
+  //         enableAnalogousColors: true,
+  //         enableComplementColor: false,
+  //         enableTransp: true,
+  //       }),
+  //     }
+  //   }
+  // }
 
   {
     parameter_4 = {
@@ -226,22 +226,22 @@ function draw() {
         )
       })
 
-      if (numLoop * 2 / 3 < i) {
-        rotateCallback(parameter_3[i].rotate, () => {
-          strokeWeight(FRAME_WIDTH / 14 * 2)
+      // if (numLoop * 2 / 3 < i) {
+      //   rotateCallback(parameter_3[i].rotate, () => {
+      //     strokeWeight(FRAME_WIDTH / 14 * 2)
 
-          textFont(Micro5Regular, parameter_3[i].fontSize)
-          stroke(parameter_3[i].strokeColor)
-          fill(parameter_3[i].fillColor)
-          text(
-            WORDS[parameter_3[i].words_idx],
-            parameter_3[i].x * width,
-            parameter_3[i].y * height
-          )
+      //     textFont(Micro5Regular, parameter_3[i].fontSize)
+      //     stroke(parameter_3[i].strokeColor)
+      //     fill(parameter_3[i].fillColor)
+      //     text(
+      //       WORDS[parameter_3[i].words_idx],
+      //       parameter_3[i].x * width,
+      //       parameter_3[i].y * height
+      //     )
 
-          strokeWeight(FRAME_WIDTH / 14)
-        })
-      }
+      //     strokeWeight(FRAME_WIDTH / 14)
+      //   })
+      // }
     }
   }
 }
