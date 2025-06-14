@@ -193,8 +193,8 @@ function addFrame(fillColor, strokeColor, frameWidth) {
     // 枠
     noStroke(), fill(fillColor)
 
-    centerX = width / 2 - frameWidth / 2
-    centerY = height / 2 - frameWidth / 2
+    const centerX = width / 2 - frameWidth / 2
+    const centerY = height / 2 - frameWidth / 2
 
     rect(-centerX, 0, frameWidth, height)
     rect(centerX, 0, frameWidth, height)
@@ -204,8 +204,8 @@ function addFrame(fillColor, strokeColor, frameWidth) {
     // 枠線
     stroke(strokeColor), noFill()
 
-    vertexX = width / 2 - frameWidth
-    vertexY = height / 2 - frameWidth
+    const vertexX = width / 2 - frameWidth
+    const vertexY = height / 2 - frameWidth
 
     noiseLine(-vertexX, -vertexY, vertexX, -vertexY)
     noiseLine(-vertexX, vertexY, vertexX, vertexY)
